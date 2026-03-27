@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SNS動画撮影ガイド</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0f0f0f;
+    --white: #fafafa;
+    --accent: #E84B3C;
+    --accent2: #2563EB;
+    --accent3: #16A34A;
+    --accent4: #9333EA;
+    --gray: #6b7280;
+    --gray-light: #f3f4f6;
+    --border: #e5e7eb;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background: var(--white);
+    color: var(--black);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  /* ── COVER ── */
+  .cover {
+    background: var(--black);
+    color: var(--white);
+    padding: 60px 48px 48px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cover::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: var(--accent);
+    opacity: 0.12;
+  }
+  .cover-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .cover h1 {
+    font-size: 38px;
+    font-weight: 900;
+    line-height: 1.15;
+    margin-bottom: 12px;
+  }
+  .cover h1 span { color: var(--accent); }
+  .cover p {
+    color: #9ca3af;
+    font-size: 13px;
+    max-width: 480px;
+  }
+  .cover-badge {
+    position: absolute;
+    bottom: 48px; right: 48px;
+    background: var(--accent);
+    color: var(--white);
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1px;
+    padding: 6px 14px;
+    border-radius: 2px;
+  }
+
+  /* ── SECTION WRAPPER ── */
+  .section {
+    padding: 48px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section:last-child { border-bottom: none; }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 32px;
+  }
+  .section-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--white);
+    background: var(--black);
+    padding: 4px 10px;
+    border-radius: 2px;
+  }
+  .section-title {
+    font-size: 22px;
+    font-weight: 900;
+  }
+  .section-sub {
+    font-size: 12px;
+    color: var(--gray);
+    margin-top: 2px;
+  }
+
+  /* ── CAMERA SETTINGS ── */
+  .settings-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .settings-card {
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .settings-card-head {
+    background: var(--gray-light);
+    padding: 10px 16px;
+    font-weight: 700;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  .icon { font-size: 16px; }
+  .settings-card-body { padding: 0; }
+  .setting-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--border);
+    gap: 12px;
+  }
+  .setting-row:last-child { border-bottom: none; }
+  .setting-label {
+    font-size: 12.5px;
+    font-weight: 500;
+    flex: 1;
+  }
+  .setting-value {
+    font-family: 'DM Mono', monospace;
+    font-size: 11.5px;
+    font-weight: 500;
+    text-align: right;
+    color: var(--accent2);
+    flex-shrink: 0;
+  }
+  .setting-note {
+    font-size: 10.5px;
+    color: var(--gray);
+    margin-top: 2px;
+    display: block;
+  }
+  .badge-on {
+    background: #dcfce7;
+    color: #16A34A;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 1px 7px;
+    border-radius: 3px;
+  }
+  .badge-off {
+    background: #fee2e2;
+    color: #dc2626;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 1px 7px;
+    border-radius: 3px;
+  }
+
+  /* iPhone specific highlight */
+  .iphone-section {
+    grid-column: 1 / -1;
+    border: 1.5px solid #3b82f6;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .iphone-section .settings-card-head {
+    background: #eff6ff;
+    border-bottom-color: #bfdbfe;
+    color: #1d4ed8;
+  }
+
+  /* IMPORTANT NOTE */
+  .important-note {
+    margin-top: 20px;
+    background: #fff7ed;
+    border-left: 4px solid #f97316;
+    border-radius: 0 6px 6px 0;
+    padding: 14px 18px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .important-note .note-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+  .important-note .note-text { font-size: 13px; font-weight: 700; }
+  .important-note .note-sub { font-size: 12px; color: #6b7280; font-weight: 400; }
+
+  /* ── SHARE METHOD ── */
+  .share-flow {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+  }
+  .share-step {
+    background: var(--gray-light);
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    padding: 18px 20px;
+    text-align: center;
+    min-width: 160px;
+    flex: 1;
+  }
+  .share-step-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--gray);
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+  .share-step-icon { font-size: 28px; margin-bottom: 8px; }
+  .share-step-title { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+  .share-step-desc { font-size: 11.5px; color: var(--gray); line-height: 1.5; }
+  .share-arrow {
+    font-size: 20px;
+    color: var(--gray);
+    padding: 0 8px;
+    flex-shrink: 0;
+  }
+
+  .folder-rule {
+    background: var(--black);
+    color: var(--white);
+    border-radius: 8px;
+    padding: 18px 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 16px;
+  }
+  .folder-rule .fr-icon { font-size: 28px; }
+  .folder-rule .fr-title { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+  .folder-rule .fr-example {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: #9ca3af;
+  }
+
+  /* ── SHOOTING STYLES FLOWCHART ── */
+  .philosophy-box {
+    border: 2px dashed var(--accent);
+    border-radius: 10px;
+    padding: 18px 24px;
+    margin-bottom: 36px;
+    background: #fff5f5;
+    text-align: center;
+  }
+  .philosophy-box .ph-title {
+    font-size: 15px;
+    font-weight: 900;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+  .philosophy-box .ph-text {
+    font-size: 13px;
+    color: #374151;
+    line-height: 1.7;
+  }
+
+  /* Flowchart Decision Tree */
+  .flowchart {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+  .fc-start {
+    background: var(--black);
+    color: var(--white);
+    border-radius: 50px;
+    padding: 14px 40px;
+    font-size: 15px;
+    font-weight: 900;
+    text-align: center;
+    margin-bottom: 0;
+  }
+  .fc-arrow-down {
+    width: 2px;
+    height: 32px;
+    background: var(--black);
+    margin: 0 auto;
+  }
+  .fc-arrow-down::after {
+    content: '▼';
+    display: block;
+    text-align: center;
+    margin-top: -2px;
+    font-size: 12px;
+    color: var(--black);
+  }
+
+  .fc-question {
+    background: #f0f9ff;
+    border: 2px solid var(--accent2);
+    border-radius: 8px;
+    padding: 14px 24px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--accent2);
+    min-width: 320px;
+    max-width: 400px;
+  }
+
+  .fc-branches {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px;
+    width: 100%;
+    margin-top: 16px;
+    margin-bottom: 8px;
+  }
+
+  .style-card {
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1.5px solid var(--border);
+    transition: transform 0.15s;
+  }
+  .style-card:hover { transform: translateY(-2px); }
+
+  .style-card-head {
+    padding: 12px 14px;
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .style-card-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    opacity: 0.7;
+  }
+  .style-card-name { font-size: 14px; font-weight: 900; }
+  .style-card-icon { font-size: 18px; margin-left: auto; }
+
+  .style-card-body { padding: 12px 14px; background: var(--white); }
+  .style-tag {
+    display: inline-block;
+    background: var(--gray-light);
+    border-radius: 3px;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 8px;
+    margin-bottom: 8px;
+    color: var(--gray);
+  }
+  .style-purpose {
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: var(--black);
+  }
+  .style-detail {
+    font-size: 11.5px;
+    color: var(--gray);
+    line-height: 1.6;
+  }
+  .style-tips {
+    margin-top: 8px;
+    background: var(--gray-light);
+    border-radius: 4px;
+    padding: 8px 10px;
+    font-size: 11px;
+    color: #374151;
+    line-height: 1.6;
+  }
+  .tips-label {
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--gray);
+    text-transform: uppercase;
+    font-family: 'DM Mono', monospace;
+    margin-bottom: 3px;
+  }
+
+  .color-1 { background: #E84B3C; }
+  .color-2 { background: #2563EB; }
+  .color-3 { background: #16A34A; }
+  .color-4 { background: #9333EA; }
+  .color-5 { background: #D97706; }
+  .color-6 { background: #DB2777; }
+  .color-7 { background: #0891B2; }
+
+  /* Style rows inside cards */
+  .style-row {
+    display: flex;
+    gap: 8px;
+    padding: 7px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 11.5px;
+    line-height: 1.6;
+    align-items: flex-start;
+  }
+  .style-row:last-of-type { border-bottom: none; }
+  .style-row-label {
+    font-weight: 700;
+    color: var(--black);
+    flex-shrink: 0;
+    width: 46px;
+    font-size: 11px;
+  }
+  .style-row-text { color: #374151; }
+
+  /* Sound row */
+  .sound-row {
+    margin-top: 6px;
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+  }
+  .sound-label {
+    font-size: 9.5px;
+    font-weight: 700;
+    font-family: 'DM Mono', monospace;
+    color: var(--gray);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .sound-text {
+    font-size: 11px;
+    color: #374151;
+    line-height: 1.5;
+  }
+
+  /* Footer */
+  .footer {
+    background: var(--black);
+    color: #4b5563;
+    padding: 24px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1px;
+  }
+  .footer-right { color: var(--accent); }
+
+  @media print {
+    .cover { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .style-card-head { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-label">SNS VIDEO PRODUCTION</div>
+  <h1>SNS動画<br><span>撮影ガイド</span></h1>
+  <p>初めて動画を撮る方でも迷わないよう、カメラ設定から撮影スタイルの選び方まで、このガイド一枚でわかります。</p>
+  <div class="cover-badge">BEGINNER GUIDE</div>
+</div>
+
+<!-- ① カメラ設定 -->
+<div class="section">
+  <div class="section-header">
+    <div>
+      <div class="section-num">SECTION 01</div>
+      <div class="section-title">📷 カメラ設定</div>
+      <div class="section-sub">撮影前に必ず確認しておくべき設定一覧</div>
+    </div>
+  </div>
+
+  <div class="settings-grid">
+    <!-- 共通設定 -->
+    <div class="settings-card">
+      <div class="settings-card-head"><span class="icon">⚙️</span>すべての機種に共通する設定</div>
+      <div class="settings-card-body">
+        <div class="setting-row">
+          <div class="setting-label">撮影スタイル</div>
+          <div class="setting-value">縦型</div>
+        </div>
+        <div class="setting-row">
+          <div class="setting-label">
+            基本解像度
+            <span class="setting-note">スロー撮影の場合は → 4K/60fps</span>
+          </div>
+          <div class="setting-value">4K / 30fps</div>
+        </div>
+        <div class="setting-row">
+          <div class="setting-label">
+            HDR設定
+            <span class="setting-note">色味の統一・明るさの調整のため</span>
+          </div>
+          <div class="setting-value"><span class="badge-off">OFF</span></div>
+        </div>
+        <div class="setting-row">
+          <div class="setting-label">手ぶれ補正</div>
+          <div class="setting-value"><span class="badge-on">ON</span></div>
+        </div>
+        <div class="setting-row">
+          <div class="setting-label">
+            シャッタースピード
+            <span class="setting-note">対応機種のみ</span>
+          </div>
+          <div class="setting-value">1/60</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- レンズ注意 -->
+    <div class="settings-card">
+      <div class="settings-card-head"><span class="icon">✅</span>撮影前チェック</div>
+      <div class="settings-card-body">
+        <div class="setting-row">
+          <div class="setting-label">
+            <strong>レンズを拭く</strong>
+            <span class="setting-note">忘れがちだが一番大事！画質が大きく変わります</span>
+          </div>
+          <div class="setting-value">🫧 必須</div>
+        </div>
+        <div class="setting-row">
+          <div class="setting-label">
+            グリッド表示
+            <span class="setting-note">被写体を画面の中心に配置しやすくなります</span>
+          </div>
+          <div class="setting-value"><span class="badge-on">ON</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- iPhone専用 -->
+    <div class="settings-card iphone-section">
+      <div class="settings-card-head"><span class="icon">🍎</span>iPhoneのみ — 追加設定（デフォルトから変更が必要な項目）</div>
+      <div class="settings-card-body" style="display:grid; grid-template-columns:1fr 1fr;">
+        <div class="setting-row" style="border-right:1px solid var(--border);">
+          <div class="setting-label">
+            ホワイトバランスをロック
+            <span class="setting-note">勝手に明るさが変わるのを防ぐ</span>
+          </div>
+          <div class="setting-value"><span class="badge-on">ON</span></div>
+        </div>
+        <div class="setting-row">
+          <div class="setting-label">
+            FPS自動調整
+            <span class="setting-note">カクつきを防ぐため（デフォルトはON）</span>
+          </div>
+          <div class="setting-value"><span class="badge-off">OFF</span></div>
+        </div>
+        <div class="setting-row" style="border-right:1px solid var(--border); border-bottom:none;">
+          <div class="setting-label">
+            フォーマット
+            <span class="setting-note">ファイルサイズと互換性のバランスが良い</span>
+          </div>
+          <div class="setting-value">高効率(HEVC)</div>
+        </div>
+        <div class="setting-row" style="border-bottom:none;">
+          <div class="setting-label">
+            グリッド
+            <span class="setting-note">被写体をキレイに映すため</span>
+          </div>
+          <div class="setting-value"><span class="badge-on">ON</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ② 共有方法 -->
+<div class="section" style="background:#fafafa;">
+  <div class="section-header">
+    <div>
+      <div class="section-num">SECTION 02</div>
+      <div class="section-title">☁️ 共有方法</div>
+      <div class="section-sub">撮影した動画の保存・管理ルール</div>
+    </div>
+  </div>
+
+  <div class="share-flow">
+    <div class="share-step">
+      <div class="share-step-num">STEP 01</div>
+      <div class="share-step-icon">🎬</div>
+      <div class="share-step-title">動画を撮影</div>
+      <div class="share-step-desc">カメラロールに保存された状態</div>
+    </div>
+    <div class="share-arrow">→</div>
+    <div class="share-step">
+      <div class="share-step-num">STEP 02</div>
+      <div class="share-step-icon">📁</div>
+      <div class="share-step-title">フォルダを作成</div>
+      <div class="share-step-desc">Googleドライブに日付やタイトルでフォルダを作る</div>
+    </div>
+    <div class="share-arrow">→</div>
+    <div class="share-step">
+      <div class="share-step-num">STEP 03</div>
+      <div class="share-step-icon">⬆️</div>
+      <div class="share-step-title">そのままアップロード</div>
+      <div class="share-step-desc">圧縮せずそのまま元の画質でアップ</div>
+    </div>
+    <div class="share-arrow">→</div>
+    <div class="share-step">
+      <div class="share-step-num">STEP 04</div>
+      <div class="share-step-icon">✅</div>
+      <div class="share-step-title">担当者に共有</div>
+      <div class="share-step-desc">フォルダのリンクをチームに送る</div>
+    </div>
+  </div>
+
+
+</div>
+
+<!-- ③ 撮影スタイル フローチャート -->
+<div class="section">
+  <div class="section-header">
+    <div>
+      <div class="section-num">SECTION 03</div>
+      <div class="section-title">🎥 撮影スタイルの選び方</div>
+      <div class="section-sub">「何を撮りたいか」から逆引きできるフローチャート</div>
+    </div>
+  </div>
+
+  <!-- Philosophy -->
+  <div class="philosophy-box">
+    <div class="ph-title">💡 大切にしていること</div>
+    <div class="ph-text">
+      「このスタイルで撮ろう」ではなく、<strong>「こんなのを撮りたい」</strong>を大事に。<br>
+      型から先に選ばずに、やりたいことを優先して。<strong>楽しむことを忘れずに！</strong>
+    </div>
+  </div>
+
+  <!-- Flowchart Decision -->
+  <div style="background:var(--gray-light); border-radius:12px; padding:28px 20px; margin-bottom:28px; text-align:center;">
+    <div style="font-size:13px; font-weight:700; color:var(--gray); letter-spacing:1px; font-family:'DM Mono',monospace; margin-bottom:16px;">STYLE SELECTOR FLOW</div>
+
+    <div style="display:inline-block; background:var(--black); color:var(--white); border-radius:50px; padding:12px 36px; font-size:15px; font-weight:900; margin-bottom:8px;">▶ 今日は何を撮りたい？</div>
+
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:20px; text-align:left;">
+      <!-- Q1 -->
+      <div style="background:white; border:2px solid #2563EB; border-radius:8px; padding:14px;">
+        <div style="font-size:11px; font-family:'DM Mono',monospace; color:#2563EB; font-weight:700; margin-bottom:6px;">📌 仕事・道具・施設の紹介</div>
+        <div style="font-size:12px; color:var(--black); font-weight:700; margin-bottom:6px;">→ ナレーション型 ①</div>
+        <div style="font-size:11px; color:var(--gray);">音声と映像を別々に収録。様々な角度から素材を撮っておくと◎</div>
+      </div>
+      <!-- Q2 -->
+      <div style="background:white; border:2px solid #16A34A; border-radius:8px; padding:14px;">
+        <div style="font-size:11px; font-family:'DM Mono',monospace; color:#16A34A; font-weight:700; margin-bottom:6px;">📌 誰かの声・想いを届けたい</div>
+        <div style="font-size:12px; color:var(--black); font-weight:700; margin-bottom:6px;">→ インタビュー型 ②</div>
+        <div style="font-size:11px; color:var(--gray);">対話スタイルでリアルな声を発信。1人でも2人でもOK</div>
+      </div>
+      <!-- Q3 -->
+      <div style="background:white; border:2px solid #16A34A; border-radius:8px; padding:14px;">
+        <div style="font-size:11px; font-family:'DM Mono',monospace; color:#16A34A; font-weight:700; margin-bottom:6px;">📌 日常・1日の流れを見せたい</div>
+        <div style="font-size:12px; color:var(--black); font-weight:700; margin-bottom:6px;">→ Vlog型 ③</div>
+        <div style="font-size:11px; color:var(--gray);">密着スタイル。何気ないカットが視聴者の共感を生む</div>
+      </div>
+      <!-- Q4 -->
+      <div style="background:white; border:2px solid #9333EA; border-radius:8px; padding:14px;">
+        <div style="font-size:11px; font-family:'DM Mono',monospace; color:#9333EA; font-weight:700; margin-bottom:6px;">📌 会社・イベントをかっこよく</div>
+        <div style="font-size:12px; color:var(--black); font-weight:700; margin-bottom:6px;">→ シネマ型 ④</div>
+        <div style="font-size:11px; color:var(--gray);">様々な画角でプロモーション映像風に仕上げる</div>
+      </div>
+      <!-- Q5 -->
+      <div style="background:white; border:2px solid #D97706; border-radius:8px; padding:14px;">
+        <div style="font-size:11px; font-family:'DM Mono',monospace; color:#D97706; font-weight:700; margin-bottom:6px;">📌 共感・あるあるで笑いをとりたい</div>
+        <div style="font-size:12px; color:var(--black); font-weight:700; margin-bottom:6px;">→ あるある型 ⑤</div>
+        <div style="font-size:11px; color:var(--gray);">ポジティブな内容で。文字だけでもOK</div>
+      </div>
+      <!-- Q6 -->
+      <div style="background:white; border:2px solid #DB2777; border-radius:8px; padding:14px;">
+        <div style="font-size:11px; font-family:'DM Mono',monospace; color:#DB2777; font-weight:700; margin-bottom:6px;">📌 流行りのネタを取り入れたい</div>
+        <div style="font-size:12px; color:var(--black); font-weight:700; margin-bottom:6px;">→ ミーム型 ⑥</div>
+        <div style="font-size:11px; color:var(--gray);">トレンドを自分たちの内容に当てはめてアレンジ</div>
+      </div>
+      <!-- Q7 -->
+      <div style="background:white; border:2px solid #0891B2; border-radius:8px; padding:14px; grid-column:1/-1; max-width:280px;">
+        <div style="font-size:11px; font-family:'DM Mono',monospace; color:#0891B2; font-weight:700; margin-bottom:6px;">📌 自分視点でリアルに見せたい</div>
+        <div style="font-size:12px; color:var(--black); font-weight:700; margin-bottom:6px;">→ POV型 ⑦</div>
+        <div style="font-size:11px; color:var(--gray);">一人称視点で撮影。自分が普段見ている景色を意識する</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7 Style Cards -->
+  <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:14px;">
+
+    <!-- ① ナレーション型 -->
+    <div class="style-card">
+      <div class="style-card-head color-1">
+        <div>
+          <div class="style-card-num">TYPE 01</div>
+          <div class="style-card-name">ナレーション型</div>
+        </div>
+        <div class="style-card-icon">🎙️</div>
+      </div>
+      <div class="style-card-body">
+        <div class="style-row"><span class="style-row-label">スタイル</span><span class="style-row-text">音声と映像を別々で撮るスタイル</span></div>
+        <div class="style-row"><span class="style-row-label">目的</span><span class="style-row-text">日々の仕事紹介や普段使う道具の紹介など、紹介系と相性〇</span></div>
+        <div class="style-row"><span class="style-row-label">撮り方</span><span class="style-row-text">引いて撮る、寄って撮る、様々な角度で撮ったり、右から左へ流れるように撮ったりすると〇</span></div>
+        <div class="style-row"><span class="style-row-label">コツ</span><span class="style-row-text">色々な素材があると◎、ナレーションは声を作らずそのままが〇（動画の内容で元気な声や落ち着いた声など、雰囲気を少し変えると◎）</span></div>
+        <div class="style-tips">
+          <div class="tips-label">音</div>
+          ナレーションの録り方は、動画を撮影して喋る、動画と喋る内容を合わせたい場合は動画を見ながら喋ると◎
+        </div>
+      </div>
+    </div>
+
+    <!-- ② インタビュー型 -->
+    <div class="style-card">
+      <div class="style-card-head color-2">
+        <div>
+          <div class="style-card-num">TYPE 02</div>
+          <div class="style-card-name">インタビュー型</div>
+        </div>
+        <div class="style-card-icon">🎤</div>
+      </div>
+      <div class="style-card-body">
+        <div class="style-row"><span class="style-row-label">スタイル</span><span class="style-row-text">対談スタイル</span></div>
+        <div class="style-row"><span class="style-row-label">目的</span><span class="style-row-text">コメント、質問の答えや仕事への想い、利用者様の声を聴くなどリアルな部分を発信</span></div>
+        <div class="style-row"><span class="style-row-label">撮り方</span><span class="style-row-text">2人でも1人でも文字だけでもOK、上司や同僚など人と人との対話があると◎、質問者がカメラを持ち撮影するとリアルな感じがして○</span></div>
+        <div class="style-row"><span class="style-row-label">コツ</span><span class="style-row-text">内容によって、硬い感じや楽し気な感じなど変えていくとメリハリがつく</span></div>
+        <div class="style-tips">
+          <div class="tips-label">音</div>
+          内容にもよるが毎回、ほぼ同じBGMにすると定番化し見やすくなる
+        </div>
+      </div>
+    </div>
+
+    <!-- ③ Vlog型 -->
+    <div class="style-card">
+      <div class="style-card-head color-3">
+        <div>
+          <div class="style-card-num">TYPE 03</div>
+          <div class="style-card-name">Vlog型</div>
+        </div>
+        <div class="style-card-icon">📹</div>
+      </div>
+      <div class="style-card-body">
+        <div class="style-row"><span class="style-row-label">スタイル</span><span class="style-row-text">密着型、一人の仕事内容を密着して撮影するスタイル</span></div>
+        <div class="style-row"><span class="style-row-label">目的</span><span class="style-row-text">同業者や施設利用者の共感や視聴者の興味を得るために。日常系と相性〇</span></div>
+        <div class="style-row"><span class="style-row-label">撮り方</span><span class="style-row-text">基本的に一人がその日の仕事内容やルーティーンを撮っていく</span></div>
+        <div class="style-row"><span class="style-row-label">コツ</span><span class="style-row-text">自分のお気に入りのアイテム紹介やドアを開ける、靴を履く、窓の外の景色、といった「何気ないカット」があると◎</span></div>
+        <div class="style-tips">
+          <div class="tips-label">音</div>
+          ASMR的要素を含むので、一つ一つの動作の音、会話や人の声を撮れていると◎
+        </div>
+      </div>
+    </div>
+
+    <!-- ④ シネマ型 -->
+    <div class="style-card">
+      <div class="style-card-head color-4">
+        <div>
+          <div class="style-card-num">TYPE 04</div>
+          <div class="style-card-name">シネマ型</div>
+        </div>
+        <div class="style-card-icon">🎬</div>
+      </div>
+      <div class="style-card-body">
+        <div class="style-row"><span class="style-row-label">スタイル</span><span class="style-row-text">会社イメージやイベントなどを撮影するスタイル、プロモーション系と相性〇</span></div>
+        <div class="style-row"><span class="style-row-label">目的</span><span class="style-row-text">新しいキャンペーンや広告を打ち出したいときに</span></div>
+        <div class="style-row"><span class="style-row-label">撮り方</span><span class="style-row-text">様々な画角や素材が必要、細かいところまで撮影できると◎</span></div>
+        <div class="style-row"><span class="style-row-label">コツ</span><span class="style-row-text">少し気取った角度で撮ると雰囲気がでて〇</span></div>
+        <div class="style-tips">
+          <div class="tips-label">音</div>
+          BGMを追加し雰囲気をブースト、ナレーション式にして声を当てても〇
+        </div>
+      </div>
+    </div>
+
+    <!-- ⑤ あるある型 -->
+    <div class="style-card">
+      <div class="style-card-head color-5">
+        <div>
+          <div class="style-card-num">TYPE 05</div>
+          <div class="style-card-name">あるある型</div>
+        </div>
+        <div class="style-card-icon">😄</div>
+      </div>
+      <div class="style-card-body">
+        <div class="style-row"><span class="style-row-label">スタイル</span><span class="style-row-text">仕事内容のあるあるなどの共感スタイル、ネタ系と相性〇</span></div>
+        <div class="style-row"><span class="style-row-label">目的</span><span class="style-row-text">あるあるや失敗談などを紹介して共感を獲得したり、興味を深め視聴者を増やす</span></div>
+        <div class="style-row"><span class="style-row-label">撮り方</span><span class="style-row-text">文字だけでも〇、会話のなかでその内容を切り抜いても〇、基本カメラを固定して撮影したり、インタビュー形式でも〇</span></div>
+        <div class="style-row"><span class="style-row-label">コツ</span><span class="style-row-text">内容は必ずポジティブに、自分たちが楽しむことを大事にすると見やすくて〇</span></div>
+        <div class="style-tips">
+          <div class="tips-label">音</div>
+          流行りの音楽とともに撮影したり、ポジティブな雰囲気をだせるBGMがあると◎
+        </div>
+      </div>
+    </div>
+
+    <!-- ⑥ ミーム型 -->
+    <div class="style-card">
+      <div class="style-card-head color-6">
+        <div>
+          <div class="style-card-num">TYPE 06</div>
+          <div class="style-card-name">ミーム型</div>
+        </div>
+        <div class="style-card-icon">🔥</div>
+      </div>
+      <div class="style-card-body">
+        <div class="style-row"><span class="style-row-label">スタイル</span><span class="style-row-text">流行りを取り入れたスタイル</span></div>
+        <div class="style-row"><span class="style-row-label">目的</span><span class="style-row-text">トレンドを取り入れ、誰でも見やすくし、内容の幅を広げる</span></div>
+        <div class="style-row"><span class="style-row-label">撮り方</span><span class="style-row-text">流行っている、もしくは流行りそうなネタを取り入れ、自分たちの内容と当てはめ撮影すると◎</span></div>
+        <div class="style-row"><span class="style-row-label">コツ</span><span class="style-row-text">クオリティを求めると他のポストを差別化を図れるので◎</span></div>
+        <div class="style-tips">
+          <div class="tips-label">音</div>
+          流行りのBGM
+        </div>
+      </div>
+    </div>
+
+    <!-- ⑦ POV型 -->
+    <div class="style-card" style="grid-column:1/-1; max-width:50%;">
+      <div class="style-card-head color-7">
+        <div>
+          <div class="style-card-num">TYPE 07</div>
+          <div class="style-card-name">POV型</div>
+        </div>
+        <div class="style-card-icon">👁️</div>
+      </div>
+      <div class="style-card-body">
+        <div class="style-row"><span class="style-row-label">スタイル</span><span class="style-row-text">仕事内容を撮影するスタイル</span></div>
+        <div class="style-row"><span class="style-row-label">目的</span><span class="style-row-text">仕事内容の紹介、リアルな部分の露出によって忖度のないリアルな動画が撮れる</span></div>
+        <div class="style-row"><span class="style-row-label">撮り方</span><span class="style-row-text">一人称視点で撮影していくとリアルさが増して見やすくなる◎</span></div>
+        <div class="style-row"><span class="style-row-label">コツ</span><span class="style-row-text">自分が普段見ている景色を意識すると◎</span></div>
+        <div class="style-tips">
+          <div class="tips-label">音</div>
+          内容合わせBGMや、ナレーションを追加し見やすくする
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div>SNS VIDEO PRODUCTION GUIDE — FOR INTERNAL USE</div>
+  <div class="footer-right">©COMPANY INTERNAL DOCUMENT</div>
+</div>
+
+</body>
+</html>
