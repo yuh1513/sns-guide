@@ -503,7 +503,56 @@
       font-size: 12px;
     }
   }
+/* ── MOBILE OPTIMIZATION (フローチャート&カード対応) ── */
+  @media (max-width: 768px) {
+    /* フローチャート全体の幅調整 */
+    .flowchart {
+      width: 100% !important;
+      padding: 0 10px;
+    }
 
+    /* 「スタート」ボタン */
+    .fc-start {
+      width: 100% !important;
+      padding: 12px 20px !important;
+      font-size: 14px !important;
+    }
+
+    /* 質問ボックス（水色の箱） */
+    .fc-question {
+      min-width: unset !important; /* 固定幅を解除 */
+      width: 100% !important;      /* 画面いっぱいに広げる */
+      padding: 12px 15px !important;
+      font-size: 13px !important;
+      line-height: 1.4 !important;
+    }
+
+    /* 矢印の調整 */
+    .fc-arrow-down {
+      height: 24px !important;
+    }
+
+    /* 選択肢（Branch）を縦並びにする */
+    .fc-branches {
+      display: flex !important;
+      flex-direction: column !important; /* 横並びを縦並びに変更 */
+      gap: 10px !important;
+      width: 100% !important;
+    }
+
+    /* カード部分（再調整） */
+    .style-card {
+      max-width: 100% !important;
+      width: 100% !important;
+      grid-column: 1 / -1 !important;
+    }
+    
+    /* カード内の行送り調整 */
+    .style-row {
+      flex-direction: column !important;
+      gap: 4px !important;
+    }
+  }
   /* ── 既存の印刷用設定（この上に貼り付けてください） ── */
   @media print {
     .cover { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
