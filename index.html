@@ -462,47 +462,52 @@
     letter-spacing: 1px;
   }
   .footer-right { color: var(--accent); }
-/* ── MOBILE OPTIMIZATION (スマホ対応・完全版) ── */
+/* ── MOBILE OPTIMIZATION (スマホ表示の最終調整) ── */
   @media (max-width: 768px) {
-    /* カバー全体の調整 */
-    .cover { 
-      padding: 40px 24px 60px !important; /* 下の余白を少し広げる */
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-    }
-    
+    /* 全体の余白 */
+    .cover { padding: 40px 24px 60px !important; display: flex; flex-direction: column; align-items: flex-start; }
+    .section { padding: 32px 16px; }
     .cover h1 { font-size: 28px; }
-    .cover p { margin-bottom: 24px; }
+    .cover-badge { position: static !important; margin-top: 10px; }
 
-    /* 【修正ポイント：重なっているバッジの配置変更】 */
-    .cover-badge {
-      position: static !important; /* 右下固定を解除 */
-      margin-top: 10px;            /* 説明文との間に少し隙間を作る */
-      display: inline-block;
-      align-self: flex-start;      /* 左側に寄せる */
+    /* 【修正】iPhone設定の2列並びを1列に強制変更 */
+    .iphone-section .settings-card-body {
+      display: flex !important;
+      flex-direction: column !important;
     }
+    .iphone-section .setting-row {
+      border-right: none !important;
+      border-bottom: 1px solid var(--border) !important;
+      width: 100% !important;
+    }
+    .iphone-section .setting-row:last-child { border-bottom: none !important; }
 
-    /* 以下、前回のフローチャート・カード修正コードを継続 */
+    /* 【修正】共有方法（STEP）の矢印を非表示に */
+    .share-flow { flex-direction: column !important; gap: 12px !important; }
+    .share-arrow { display: none !important; } /* 右側の矢印を消す */
+    .share-step { width: 100% !important; }
+
+    /* セレクターフロー（3列並び）を1列に */
     .section [style*="display:grid; grid-template-columns:repeat(3,1fr)"] {
       grid-template-columns: 1fr !important;
       gap: 12px !important;
     }
 
+    /* TYPE 01〜07のカード調整 */
     .style-card {
       max-width: 100% !important;
       width: 100% !important;
       grid-column: 1 / -1 !important;
     }
-
     .style-row {
       flex-direction: column !important;
       gap: 4px !important;
+      padding: 10px 0 !important;
     }
+    .style-row-label { width: auto !important; align-self: flex-start; }
     
     .settings-grid { grid-template-columns: 1fr !important; }
   }
-
   /* ── 既存の印刷用設定（この上に貼り付けてください） ── */
   @media print {
     .cover { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
