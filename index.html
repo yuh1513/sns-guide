@@ -462,97 +462,53 @@
     letter-spacing: 1px;
   }
   .footer-right { color: var(--accent); }
-/* ── MOBILE OPTIMIZATION (スマホ対応) ── */
+/* ── MOBILE OPTIMIZATION (スマホ対応・完全版) ── */
   @media (max-width: 768px) {
-    /* 1. 全体の余白を調整 */
+    /* 全体の余白 */
     .cover { padding: 40px 24px; }
-    .section { padding: 32px 20px; }
-    .cover h1 { font-size: 28px; }
+    .section { padding: 32px 16px; }
+    .cover h1 { font-size: 26px; }
 
-    /* 2. 2列並びを1列に強制変更 */
-    .settings-grid {
-      grid-template-columns: 1fr !important;
+    /* 【修正ポイント：セレクターフロー】 */
+    /* 3列並びを1列に変更し、1つ1つの箱を読みやすくする */
+    .section [style*="display:grid; grid-template-columns:repeat(3,1fr)"] {
+      grid-template-columns: 1fr !important; /* 縦1列に強制 */
+      gap: 12px !important;
     }
 
-    /* 3. カードの幅制限（50%など）を解除して全幅にする */
-    .style-card {
+    /* POV型(TYPE 07)が横幅280pxに制限されているのを解除 */
+    .section [style*="max-width:280px"] {
       max-width: 100% !important;
-      grid-column: 1 / -1 !important;
     }
 
-    /* 4. 横並びのステップ（共有方法）を縦並びにする */
-    .share-flow {
-      flex-direction: column;
-      align-items: stretch;
-    }
-    .share-arrow {
-      text-align: center;
-      padding: 8px 0;
-      transform: rotate(90deg); /* 矢印を下に向けに */
-    }
-
-    /* 5. 文字の「行送り」を改善するための余白調整 */
-    .style-row {
-      gap: 12px;
-    }
-    .style-row-label {
-      width: 60px !important; /* ラベルの幅を少し広げて安定させる */
-      flex-shrink: 0;
-    }
-    .style-row-text {
-      font-size: 12px;
-    }
-  }
-/* ── MOBILE OPTIMIZATION (フローチャート&カード対応) ── */
-  @media (max-width: 768px) {
-    /* フローチャート全体の幅調整 */
-    .flowchart {
-      width: 100% !important;
-      padding: 0 10px;
-    }
-
-    /* 「スタート」ボタン */
-    .fc-start {
-      width: 100% !important;
-      padding: 12px 20px !important;
-      font-size: 14px !important;
-    }
-
-    /* 質問ボックス（水色の箱） */
-    .fc-question {
-      min-width: unset !important; /* 固定幅を解除 */
-      width: 100% !important;      /* 画面いっぱいに広げる */
-      padding: 12px 15px !important;
-      font-size: 13px !important;
-      line-height: 1.4 !important;
-    }
-
-    /* 矢印の調整 */
-    .fc-arrow-down {
-      height: 24px !important;
-    }
-
-    /* 選択肢（Branch）を縦並びにする */
-    .fc-branches {
-      display: flex !important;
-      flex-direction: column !important; /* 横並びを縦並びに変更 */
-      gap: 10px !important;
-      width: 100% !important;
-    }
-
-    /* カード部分（再調整） */
+    /* 【修正ポイント：TYPE 01〜07のカード】 */
     .style-card {
-      max-width: 100% !important;
+      max-width: 100% !important; /* HTML直書きの50%を解除 */
       width: 100% !important;
       grid-column: 1 / -1 !important;
+      margin-bottom: 16px;
     }
-    
-    /* カード内の行送り調整 */
+
+    /* カード内の文字の重なりを解消 */
     .style-row {
       flex-direction: column !important;
       gap: 4px !important;
+      padding: 10px 0 !important;
     }
+    .style-row-label {
+      width: auto !important;
+      background: var(--gray-light);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 10px;
+    }
+
+    /* カメラ設定と共有方法 */
+    .settings-grid { grid-template-columns: 1fr !important; }
+    .share-flow { flex-direction: column; }
+    .share-arrow { transform: rotate(90deg); padding: 8px 0; }
   }
+
   /* ── 既存の印刷用設定（この上に貼り付けてください） ── */
   @media print {
     .cover { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
