@@ -464,49 +464,43 @@
   .footer-right { color: var(--accent); }
 /* ── MOBILE OPTIMIZATION (スマホ対応・完全版) ── */
   @media (max-width: 768px) {
-    /* 全体の余白 */
-    .cover { padding: 40px 24px; }
-    .section { padding: 32px 16px; }
-    .cover h1 { font-size: 26px; }
+    /* カバー全体の調整 */
+    .cover { 
+      padding: 40px 24px 60px !important; /* 下の余白を少し広げる */
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    
+    .cover h1 { font-size: 28px; }
+    .cover p { margin-bottom: 24px; }
 
-    /* 【修正ポイント：セレクターフロー】 */
-    /* 3列並びを1列に変更し、1つ1つの箱を読みやすくする */
+    /* 【修正ポイント：重なっているバッジの配置変更】 */
+    .cover-badge {
+      position: static !important; /* 右下固定を解除 */
+      margin-top: 10px;            /* 説明文との間に少し隙間を作る */
+      display: inline-block;
+      align-self: flex-start;      /* 左側に寄せる */
+    }
+
+    /* 以下、前回のフローチャート・カード修正コードを継続 */
     .section [style*="display:grid; grid-template-columns:repeat(3,1fr)"] {
-      grid-template-columns: 1fr !important; /* 縦1列に強制 */
+      grid-template-columns: 1fr !important;
       gap: 12px !important;
     }
 
-    /* POV型(TYPE 07)が横幅280pxに制限されているのを解除 */
-    .section [style*="max-width:280px"] {
-      max-width: 100% !important;
-    }
-
-    /* 【修正ポイント：TYPE 01〜07のカード】 */
     .style-card {
-      max-width: 100% !important; /* HTML直書きの50%を解除 */
+      max-width: 100% !important;
       width: 100% !important;
       grid-column: 1 / -1 !important;
-      margin-bottom: 16px;
     }
 
-    /* カード内の文字の重なりを解消 */
     .style-row {
       flex-direction: column !important;
       gap: 4px !important;
-      padding: 10px 0 !important;
     }
-    .style-row-label {
-      width: auto !important;
-      background: var(--gray-light);
-      padding: 2px 8px;
-      border-radius: 4px;
-      font-size: 10px;
-    }
-
-    /* カメラ設定と共有方法 */
+    
     .settings-grid { grid-template-columns: 1fr !important; }
-    .share-flow { flex-direction: column; }
-    .share-arrow { transform: rotate(90deg); padding: 8px 0; }
   }
 
   /* ── 既存の印刷用設定（この上に貼り付けてください） ── */
